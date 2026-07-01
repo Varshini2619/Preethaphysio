@@ -1,0 +1,8 @@
+{
+  "name": "Dr. Preetha Physiotherapy Clinic",
+  "description": "A modern real-time healthcare platform for physiotherapy and rehabilitation with appointment booking and interactive calendars.",
+  "requestFramePermissions": [],
+  "majorCapabilities": [
+    "MAJOR_CAPABILITY_SERVER_SIDE_GEMINI_API"
+  ]
+}

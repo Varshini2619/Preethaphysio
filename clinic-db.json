@@ -1,0 +1,161 @@
+{
+  "users": [
+    {
+      "id": "doc-preetha",
+      "email": "doctor@preethaphysio.com",
+      "password": "doctor123",
+      "name": "Dr. Preetha, BPT",
+      "age": 38,
+      "gender": "Female",
+      "phone": "+91 9443212345",
+      "address": "No. 12, Gandhi Nagar, Phase 2, Near VIT University, Vellore - 632014, Tamil Nadu",
+      "medicalInfo": "Senior Orthopedic Physiotherapist & Rehabilitation Expert",
+      "role": "doctor"
+    },
+    {
+      "id": "patient-demo",
+      "email": "patient@example.com",
+      "password": "patient123",
+      "name": "Vijay Kumar",
+      "age": 45,
+      "gender": "Male",
+      "phone": "+91 9876543210",
+      "address": "Sathuvachari, Vellore - 632009, Tamil Nadu",
+      "medicalInfo": "Suffering from chronic lower back pain (L4-L5 disc compression) for 3 months.",
+      "role": "patient"
+    },
+    {
+      "id": "patient-zfudgwxrv",
+      "email": "varshu@gmail.com",
+      "password": "Varshu@26",
+      "name": "Varshini",
+      "age": 22,
+      "gender": "Female",
+      "phone": "9876543210",
+      "address": "North Chennai",
+      "medicalInfo": "Back pain",
+      "role": "patient"
+    },
+    {
+      "id": "patient-a8kwhrhxv",
+      "email": "varshinibabu534@gmail.com",
+      "password": "Bacteria_26",
+      "name": "Varshu",
+      "age": 28,
+      "gender": "Female",
+      "phone": "9765432180",
+      "address": "Nellore",
+      "medicalInfo": "Neck pain",
+      "role": "patient"
+    }
+  ],
+  "appointments": [
+    {
+      "id": "APT-4613",
+      "patientId": "patient-zfudgwxrv",
+      "patientName": "Varshini",
+      "patientPhone": "9876543210",
+      "date": "2026-07-10",
+      "timeSlot": "02:00 PM - 03:00 PM",
+      "doctorName": "Dr. Preetha",
+      "consultationType": "offline",
+      "status": "cancelled",
+      "medicalNotes": "",
+      "recoveryStatus": "",
+      "meetingLink": "",
+      "createdAt": "2026-06-30T10:26:25.935Z"
+    },
+    {
+      "id": "APT-4329",
+      "patientId": "patient-a8kwhrhxv",
+      "patientName": "Varshu",
+      "patientPhone": "9765432180",
+      "date": "2026-06-30",
+      "timeSlot": "10:00 AM - 11:00 AM",
+      "doctorName": "Dr. Preetha",
+      "consultationType": "online",
+      "status": "cancelled",
+      "medicalNotes": "",
+      "recoveryStatus": "",
+      "meetingLink": "https://meet.google.com/physio-preetha-8szb-tyk3",
+      "createdAt": "2026-06-30T10:29:12.406Z"
+    }
+  ],
+  "reviews": [
+    {
+      "id": "rev-1",
+      "patientName": "Ananya Iyer",
+      "rating": 5,
+      "comment": "Dr. Preetha is exceptionally skilled. My shoulder pain of 6 months vanished in just 5 session of dry needling and target exercises! Highly recommend her.",
+      "imageUrl": "",
+      "createdAt": "2026-06-25T09:35:17.443Z"
+    },
+    {
+      "id": "rev-2",
+      "patientName": "Rajesh Sekhar",
+      "rating": 5,
+      "comment": "Excellent experience. Visited the Vellore clinic for knee rehab after ACL surgery. The guidance was top-class and she provided a very detailed home exercise sheet too.",
+      "imageUrl": "",
+      "createdAt": "2026-06-28T09:35:17.443Z"
+    },
+    {
+      "id": "rev-3",
+      "patientName": "Karthik Raja",
+      "rating": 4,
+      "comment": "Very helpful online consultation. Since I was in Chennai, we did a virtual check. Her posture instructions and muscle activation tips worked wonders for my neck spasm.",
+      "imageUrl": "",
+      "createdAt": "2026-06-18T09:35:17.443Z"
+    }
+  ],
+  "emails": [
+    {
+      "id": "email-9qr9ej07s",
+      "to": "varshinibabu534@gmail.com",
+      "subject": "Cancelled: Appointment APT-4329 on 2026-06-30",
+      "body": "<h3>Appointment Cancellation</h3><p>Dear Varshu,</p><p>We confirm that your appointment <strong>APT-4329</strong> scheduled for <strong>2026-06-30</strong> at <strong>10:00 AM - 11:00 AM</strong> has been cancelled.</p><p>If this was unexpected, please book a new slot on our portal or contact us immediately.</p><p>Warmly,<br/>Dr. Preetha Clinic Support</p>",
+      "sentAt": "2026-06-30T10:31:02.987Z"
+    },
+    {
+      "id": "email-w7zce15um",
+      "to": "varshinibabu534@gmail.com",
+      "subject": "Confirmed: Appointment APT-4329 on 2026-06-30",
+      "body": "\n    <h3>Appointment Confirmed! - Dr. Preetha Physiotherapy Clinic</h3>\n    <p>Dear Varshu,</p>\n    <p>Your physiotherapy appointment has been successfully booked and confirmed.</p>\n    <table style=\"border-collapse: collapse; width: 100%; max-width: 500px; font-family: sans-serif; margin: 15px 0;\">\n      <tr style=\"background-color: #f3f4f6;\"><td style=\"padding: 10px; font-weight: bold;\">Appointment ID:</td><td style=\"padding: 10px;\">APT-4329</td></tr>\n      <tr><td style=\"padding: 10px; font-weight: bold;\">Consultation:</td><td style=\"padding: 10px; text-transform: capitalize;\">online Consultation</td></tr>\n      <tr style=\"background-color: #f3f4f6;\"><td style=\"padding: 10px; font-weight: bold;\">Date:</td><td style=\"padding: 10px;\">Tuesday, 30 June 2026</td></tr>\n      <tr><td style=\"padding: 10px; font-weight: bold;\">Time Slot:</td><td style=\"padding: 10px;\">10:00 AM - 11:00 AM</td></tr>\n      <tr style=\"background-color: #f3f4f6;\"><td style=\"padding: 10px; font-weight: bold;\">Doctor:</td><td style=\"padding: 10px;\">Dr. Preetha</td></tr>\n      <tr><td style=\"padding: 10px; font-weight: bold; color: #2563eb;\">Online Meeting Link:</td><td style=\"padding: 10px;\"><a href=\"https://meet.google.com/physio-preetha-8szb-tyk3\" target=\"_blank\" style=\"color: #2563eb; font-weight: 500;\">Join Video Consultation</a></td></tr>\n    </table>\n    <p>Please arrive 10 minutes prior to your scheduled offline appointment or join the online link on time.</p>\n    <p>To cancel or reschedule, please use the Patient Dashboard at least 2 hours before your slot.</p>\n    <p>Best Health,<br/><strong>Dr. Preetha Physiotherapy Clinic Team</strong></p>\n  ",
+      "sentAt": "2026-06-30T10:29:12.407Z"
+    },
+    {
+      "id": "email-n9z421g8i",
+      "to": "varshinibabu534@gmail.com",
+      "subject": "Welcome to Dr. Preetha Physiotherapy Clinic",
+      "body": "<h3>Hello Varshu,</h3><p>Welcome to <strong>Dr. Preetha Physiotherapy Clinic</strong>!</p><p>We are delighted to support you on your rehabilitation journey. Our modern clinic specializes in treating back pain, neck pain, sports injuries, and customized recovery plans.</p><p>You can manage and book your appointments in real-time on our website.</p><p>Warm regards,<br/><strong>Dr. Preetha BPT</strong></p>",
+      "sentAt": "2026-06-30T10:28:54.969Z"
+    },
+    {
+      "id": "email-8vf0t5d1t",
+      "to": "varshu@gmail.com",
+      "subject": "Cancelled: Appointment APT-4613 on 2026-07-10",
+      "body": "<h3>Appointment Cancellation</h3><p>Dear Varshini,</p><p>We confirm that your appointment <strong>APT-4613</strong> scheduled for <strong>2026-07-10</strong> at <strong>02:00 PM - 03:00 PM</strong> has been cancelled.</p><p>If this was unexpected, please book a new slot on our portal or contact us immediately.</p><p>Warmly,<br/>Dr. Preetha Clinic Support</p>",
+      "sentAt": "2026-06-30T10:28:03.893Z"
+    },
+    {
+      "id": "email-tq6godu4c",
+      "to": "varshu@gmail.com",
+      "subject": "Confirmed: Appointment APT-4613 on 2026-07-10",
+      "body": "\n    <h3>Appointment Confirmed! - Dr. Preetha Physiotherapy Clinic</h3>\n    <p>Dear Varshini,</p>\n    <p>Your physiotherapy appointment has been successfully booked and confirmed.</p>\n    <table style=\"border-collapse: collapse; width: 100%; max-width: 500px; font-family: sans-serif; margin: 15px 0;\">\n      <tr style=\"background-color: #f3f4f6;\"><td style=\"padding: 10px; font-weight: bold;\">Appointment ID:</td><td style=\"padding: 10px;\">APT-4613</td></tr>\n      <tr><td style=\"padding: 10px; font-weight: bold;\">Consultation:</td><td style=\"padding: 10px; text-transform: capitalize;\">offline Consultation</td></tr>\n      <tr style=\"background-color: #f3f4f6;\"><td style=\"padding: 10px; font-weight: bold;\">Date:</td><td style=\"padding: 10px;\">Friday, 10 July 2026</td></tr>\n      <tr><td style=\"padding: 10px; font-weight: bold;\">Time Slot:</td><td style=\"padding: 10px;\">02:00 PM - 03:00 PM</td></tr>\n      <tr style=\"background-color: #f3f4f6;\"><td style=\"padding: 10px; font-weight: bold;\">Doctor:</td><td style=\"padding: 10px;\">Dr. Preetha</td></tr>\n      <tr><td style=\"padding: 10px; font-weight: bold;\">Clinic Address:</td><td style=\"padding: 10px;\">No. 12, Gandhi Nagar, Phase 2, Near VIT University, Vellore - 632014</td></tr>\n    </table>\n    <p>Please arrive 10 minutes prior to your scheduled offline appointment or join the online link on time.</p>\n    <p>To cancel or reschedule, please use the Patient Dashboard at least 2 hours before your slot.</p>\n    <p>Best Health,<br/><strong>Dr. Preetha Physiotherapy Clinic Team</strong></p>\n  ",
+      "sentAt": "2026-06-30T10:26:26.228Z"
+    },
+    {
+      "id": "email-edxhr5kpj",
+      "to": "varshu@gmail.com",
+      "subject": "Welcome to Dr. Preetha Physiotherapy Clinic",
+      "body": "<h3>Hello Varshini,</h3><p>Welcome to <strong>Dr. Preetha Physiotherapy Clinic</strong>!</p><p>We are delighted to support you on your rehabilitation journey. Our modern clinic specializes in treating back pain, neck pain, sports injuries, and customized recovery plans.</p><p>You can manage and book your appointments in real-time on our website.</p><p>Warm regards,<br/><strong>Dr. Preetha BPT</strong></p>",
+      "sentAt": "2026-06-30T10:25:42.356Z"
+    },
+    {
+      "id": "email-welcome",
+      "to": "patient@example.com",
+      "subject": "Welcome to Dr. Preetha Physiotherapy Clinic",
+      "body": "Hello Vijay Kumar,<br/><br/>Welcome to Dr. Preetha Physiotherapy Clinic! We are dedicated to relieving your pain and restoring your movement.<br/><br/>Feel free to book appointments anytime through our real-time smart portal.<br/><br/>Best Regards,<br/>Dr. Preetha Physiotherapy Clinic Support Team",
+      "sentAt": "2026-06-30T09:35:17.443Z"
+    }
+  ]
+}
