@@ -1,6 +1,7 @@
 import React, { useState, useEffect } from "react";
 import { Mail, Inbox, ChevronUp, ChevronDown, Clock, Send, Sparkles, X } from "lucide-react";
 import { ClinicEmail } from "../types";
+import { API_BASE_URL } from "../config";
 
 export default function SimulatedEmailInbox() {
   const [emails, setEmails] = useState<ClinicEmail[]>([]);
@@ -10,7 +11,7 @@ export default function SimulatedEmailInbox() {
 
   const fetchEmails = async () => {
     try {
-      const res = await fetch("/api/simulated-emails");
+      const res = await fetch(`${API_BASE_URL}/api/simulated-emails`);
       if (res.ok) {
         const data = await res.json();
         setEmails(data || []);

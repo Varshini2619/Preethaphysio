@@ -12,6 +12,7 @@ import SimulatedEmailInbox from "./components/SimulatedEmailInbox";
 import PatientDashboard from "./components/PatientDashboard";
 import DoctorDashboard from "./components/DoctorDashboard";
 import { User } from "./types";
+import { API_BASE_URL } from "./config";
 
 export default function App() {
   const [user, setUser] = useState<User | null>(null);
@@ -31,7 +32,7 @@ export default function App() {
     if (!token) return;
 
     try {
-      const res = await fetch("/api/profile", {
+      const res = await fetch(`${API_BASE_URL}/api/profile`, {
         headers: {
           "Authorization": `Bearer ${token}`
         }

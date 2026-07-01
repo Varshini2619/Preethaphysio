@@ -3,6 +3,7 @@ import {
   User as UserIcon, Calendar, History, Edit, Save, X, Phone, Mail, MapPin, ClipboardList, Video, CheckCircle, Clock, AlertCircle 
 } from "lucide-react";
 import { User, Appointment } from "../types";
+import { API_BASE_URL } from "../config";
 
 interface PatientDashboardProps {
   user: User;
@@ -31,7 +32,7 @@ export default function PatientDashboard({ user, onProfileUpdate, onNavigateToBo
     setIsLoading(true);
     try {
       const token = localStorage.getItem("physio_clinic_token");
-      const res = await fetch("/api/appointments", {
+      const res = await fetch(`${API_BASE_URL}/api/appointments`, {
         headers: {
           "Authorization": `Bearer ${token}`
         }
@@ -59,7 +60,7 @@ export default function PatientDashboard({ user, onProfileUpdate, onNavigateToBo
 
     try {
       const token = localStorage.getItem("physio_clinic_token");
-      const res = await fetch("/api/profile", {
+      const res = await fetch(`${API_BASE_URL}/api/profile`, {
         method: "PUT",
         headers: {
           "Content-Type": "application/json",
@@ -97,7 +98,7 @@ export default function PatientDashboard({ user, onProfileUpdate, onNavigateToBo
 
     try {
       const token = localStorage.getItem("physio_clinic_token");
-      const res = await fetch(`/api/appointments/${id}`, {
+      const res = await fetch(`${API_BASE_URL}/api/appointments/${id}`, {
         method: "PUT",
         headers: {
           "Content-Type": "application/json",

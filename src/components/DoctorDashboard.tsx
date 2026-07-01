@@ -4,6 +4,7 @@ import {
   Trash2, Edit, Save, X, ChevronRight, CheckCircle, AlertCircle, FileText, ClipboardList
 } from "lucide-react";
 import { Appointment } from "../types";
+import { API_BASE_URL } from "../config";
 
 interface DoctorDashboardProps {
   doctorUser: any;
@@ -34,7 +35,7 @@ export default function DoctorDashboard({ doctorUser }: DoctorDashboardProps) {
     setIsLoading(true);
     try {
       const token = localStorage.getItem("physio_clinic_token");
-      const res = await fetch("/api/appointments", {
+      const res = await fetch(`${API_BASE_URL}/api/appointments`, {
         headers: {
           "Authorization": `Bearer ${token}`
         }
@@ -58,7 +59,7 @@ export default function DoctorDashboard({ doctorUser }: DoctorDashboardProps) {
   const handleApprove = async (id: string) => {
     try {
       const token = localStorage.getItem("physio_clinic_token");
-      const res = await fetch(`/api/appointments/${id}`, {
+      const res = await fetch(`${API_BASE_URL}/api/appointments/${id}`, {
         method: "PUT",
         headers: {
           "Content-Type": "application/json",
@@ -79,7 +80,7 @@ export default function DoctorDashboard({ doctorUser }: DoctorDashboardProps) {
     if (!window.confirm("Cancel this appointment? An email notification will be dispatched.")) return;
     try {
       const token = localStorage.getItem("physio_clinic_token");
-      const res = await fetch(`/api/appointments/${id}`, {
+      const res = await fetch(`${API_BASE_URL}/api/appointments/${id}`, {
         method: "PUT",
         headers: {
           "Content-Type": "application/json",

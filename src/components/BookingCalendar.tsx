@@ -4,6 +4,7 @@ import {
 } from "lucide-react";
 import { motion, AnimatePresence } from "motion/react";
 import { SlotAvailability, Appointment, User } from "../types";
+import { API_BASE_URL } from "../config";
 
 interface BookingCalendarProps {
   user: User | null;
@@ -46,7 +47,7 @@ export default function BookingCalendar({ user, onOpenAuth, initialServiceFocus 
     setIsLoadingSlots(true);
     setErrorMessage("");
     try {
-      const res = await fetch(`/api/slots?date=${dateStr}`);
+      const res = await fetch(`${API_BASE_URL}/api/slots?date=${dateStr}`);
       const data = await res.json();
       if (!res.ok) throw new Error(data.error || "Failed to load slots");
       
@@ -95,7 +96,7 @@ export default function BookingCalendar({ user, onOpenAuth, initialServiceFocus 
 
     try {
       const token = localStorage.getItem("physio_clinic_token");
-      const res = await fetch("/api/appointments", {
+      const res = await fetch(`${API_BASE_URL}/api/appointments`, {
         method: "POST",
         headers: {
           "Content-Type": "application/json",

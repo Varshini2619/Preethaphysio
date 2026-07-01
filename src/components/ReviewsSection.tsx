@@ -3,6 +3,7 @@ import {
   Star, MessageSquare, Plus, Edit2, AlertCircle, Sparkles, Check, CheckCircle 
 } from "lucide-react";
 import { Review, User } from "../types";
+import { API_BASE_URL } from "../config";
 
 interface ReviewsSectionProps {
   user: User | null;
@@ -22,7 +23,7 @@ export default function ReviewsSection({ user, onOpenAuth }: ReviewsSectionProps
 
   const fetchReviews = async () => {
     try {
-      const res = await fetch("/api/reviews");
+      const res = await fetch(`${API_BASE_URL}/api/reviews`);
       const data = await res.json();
       if (res.ok) {
         setReviews(data.reviews || []);
@@ -58,7 +59,7 @@ export default function ReviewsSection({ user, onOpenAuth }: ReviewsSectionProps
 
     try {
       const token = localStorage.getItem("physio_clinic_token");
-      const res = await fetch("/api/reviews", {
+      const res = await fetch(`${API_BASE_URL}/api/reviews`, {
         method: "POST",
         headers: {
           "Content-Type": "application/json",

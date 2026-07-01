@@ -2,6 +2,7 @@ import React, { useState } from "react";
 import { X, Mail, Lock, User, Phone, MapPin, Eye, EyeOff, Activity, ShieldCheck } from "lucide-react";
 import { motion, AnimatePresence } from "motion/react";
 import { User as UserType } from "../types";
+import { API_BASE_URL } from "../config";
 
 interface AuthModalProps {
   isOpen: boolean;
@@ -54,7 +55,7 @@ export default function AuthModal({ isOpen, onClose, onAuthSuccess, initialMode 
 
     try {
       if (mode === "forgot") {
-        const res = await fetch("/api/auth/reset-password", {
+        const res = await fetch(`${API_BASE_URL}/api/auth/reset-password`, {
           method: "POST",
           headers: { "Content-Type": "application/json" },
           body: JSON.stringify({ email })
@@ -68,7 +69,7 @@ export default function AuthModal({ isOpen, onClose, onAuthSuccess, initialMode 
           setShowResetCode(true);
         }
       } else if (mode === "login" || mode === "doctor") {
-        const res = await fetch("/api/auth/login", {
+        const res = await fetch(`${API_BASE_URL}/api/auth/login`, {
           method: "POST",
           headers: { "Content-Type": "application/json" },
           body: JSON.stringify({ email, password })
@@ -90,7 +91,7 @@ export default function AuthModal({ isOpen, onClose, onAuthSuccess, initialMode 
         setSuccess("Login successful!");
         setTimeout(() => onClose(), 1000);
       } else if (mode === "register") {
-        const res = await fetch("/api/auth/register", {
+        const res = await fetch(`${API_BASE_URL}/api/auth/register`, {
           method: "POST",
           headers: { "Content-Type": "application/json" },
           body: JSON.stringify({
