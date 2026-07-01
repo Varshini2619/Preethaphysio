@@ -12,7 +12,7 @@
   "rewrites": [
     {
       "source": "/api/:path*",
-      "destination": "https://physio-clinic-backend.onrender.com/api/:path*"
+      "destination": "https://physio-clinic-production.up.railway.app/api/:path*"
     }
   ]
 }
