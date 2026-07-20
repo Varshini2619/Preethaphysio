@@ -2,6 +2,7 @@ import React, { useState, useEffect } from "react";
 import Header from "./components/Header";
 import Hero from "./components/Hero";
 import Services from "./components/Services";
+import TreatmentGallery from "./components/TreatmentGallery";
 import AboutDoctor from "./components/AboutDoctor";
 import BookingCalendar from "./components/BookingCalendar";
 import ReviewsSection from "./components/ReviewsSection";
@@ -11,13 +12,13 @@ import AuthModal from "./components/AuthModal";
 import SimulatedEmailInbox from "./components/SimulatedEmailInbox";
 import PatientDashboard from "./components/PatientDashboard";
 import DoctorDashboard from "./components/DoctorDashboard";
+import Blogs from "./components/Blogs";
 import { User } from "./types";
 import { API_BASE_URL } from "./config";
 
 export default function App() {
   const [user, setUser] = useState<User | null>(null);
   const [activeView, setActiveView] = useState<"home" | "dashboard">("home");
-  const [theme, setTheme] = useState<"light" | "dark">("light");
   
   // Auth Modal States
   const [isAuthOpen, setIsAuthOpen] = useState(false);
@@ -51,30 +52,7 @@ export default function App() {
 
   useEffect(() => {
     checkProfile();
-
-    // Theme auto-detection initialization
-    const savedTheme = localStorage.getItem("physio_clinic_theme");
-    if (savedTheme === "dark" || savedTheme === "light") {
-      setTheme(savedTheme as "light" | "dark");
-    } else {
-      const prefersDark = window.matchMedia("(prefers-color-scheme: dark)").matches;
-      setTheme(prefersDark ? "dark" : "light");
-    }
   }, []);
-
-  // Update DOM when theme state changes
-  useEffect(() => {
-    if (theme === "dark") {
-      document.documentElement.classList.add("dark");
-    } else {
-      document.documentElement.classList.remove("dark");
-    }
-    localStorage.setItem("physio_clinic_theme", theme);
-  }, [theme]);
-
-  const handleToggleTheme = () => {
-    setTheme((prev) => (prev === "light" ? "dark" : "light"));
-  };
 
   const handleLoginSuccess = (token: string, loggedInUser: User) => {
     localStorage.setItem("physio_clinic_token", token);
@@ -130,14 +108,12 @@ export default function App() {
   };
 
   return (
-    <div className="min-h-screen bg-white dark:bg-slate-950 text-slate-800 dark:text-slate-100 transition-colors duration-200 selection:bg-blue-600 selection:text-white font-sans">
+    <div className="min-h-screen bg-white text-slate-800 transition-colors duration-200 selection:bg-blue-600 selection:text-white font-sans">
       
       {/* Clinic Header Navigation */}
       <Header 
         user={user} 
         activeView={activeView}
-        theme={theme}
-        onToggleTheme={handleToggleTheme}
         onNavigate={handleNavigation}
         onLogout={handleLogout}
         onOpenAuth={handleOpenAuth}
@@ -164,7 +140,9 @@ export default function App() {
               onConsultationClick={() => handleNavigation("book-appointment")} 
             />
             <Services onServiceSelect={handleBookService} />
+            <TreatmentGallery />
             <AboutDoctor />
+            <Blogs />
             <BookingCalendar 
               user={user} 
               onOpenAuth={handleOpenAuth} 

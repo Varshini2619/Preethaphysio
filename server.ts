@@ -29,7 +29,10 @@ const resend = resendApiKey ? new Resend(resendApiKey) : null;
 const frontendUrl = process.env.FRONTEND_URL || 'http://localhost:5173';
 const allowedOrigins = [
   'http://localhost:5173',
+  'http://localhost:5174',
+  'http://localhost:5175',
   'http://localhost:3000',
+  'http://127.0.0.1:51087',
   frontendUrl
 ];
 
@@ -181,6 +184,8 @@ initializeSeedData();
 app.post("/api/auth/register", async (req, res) => {
   try {
     const { email, password, name, age, gender, phone, address, medicalInfo } = req.body;
+    console.log("Registration attempt:", { email, name, hasPassword: !!password });
+    
     if (!email || !password || !name) {
       return res.status(400).json({ error: "Email, password, and name are required fields." });
     }
@@ -219,26 +224,33 @@ app.post("/api/auth/register", async (req, res) => {
       .single();
 
     if (insertError) {
-      return res.status(500).json({ error: "Failed to create user." });
+      console.error("Supabase insert error:", insertError);
+      return res.status(500).json({ error: "Failed to create user.", details: insertError.message });
     }
 
     // Send a simulated welcome email
-    await supabase.from('emails').insert([
-      {
-        id: "email-" + Math.random().toString(36).substr(2, 9),
-        to: email,
-        subject: "Welcome to Dr. Preetha Physiotherapy Clinic",
-        body: `<h3>Hello ${name},</h3><p>Welcome to <strong>Dr. Preetha Physiotherapy Clinic</strong>!</p><p>We are delighted to support you on your rehabilitation journey. Our modern clinic specializes in treating back pain, neck pain, sports injuries, and customized recovery plans.</p><p>You can manage and book your appointments in real-time on our website.</p><p>Warm regards,<br/><strong>Dr. Preetha BPT</strong></p>`,
-        sent_at: new Date().toISOString()
-      }
-    ]);
+    try {
+      await supabase.from('emails').insert([
+        {
+          id: "email-" + Math.random().toString(36).substr(2, 9),
+          to: email,
+          subject: "Welcome to Dr. Preetha Physiotherapy Clinic",
+          body: `<h3>Hello ${name},</h3><p>Welcome to <strong>Dr. Preetha Physiotherapy Clinic</strong>!</p><p>We are delighted to support you on your rehabilitation journey. Our modern clinic specializes in treating back pain, neck pain, sports injuries, and customized recovery plans.</p><p>You can manage and book your appointments in real-time on our website.</p><p>Warm regards,<br/><strong>Dr. Preetha BPT</strong></p>`,
+          sent_at: new Date().toISOString()
+        }
+      ]);
+    } catch (emailError) {
+      console.error("Failed to save email to database:", emailError);
+    }
 
-    // Send real welcome email via Resend
-    await sendEmail(
+    // Send real welcome email via Resend (non-blocking)
+    sendEmail(
       email,
       "Welcome to Dr. Preetha Physiotherapy Clinic",
       `<h3>Hello ${name},</h3><p>Welcome to <strong>Dr. Preetha Physiotherapy Clinic</strong>!</p><p>We are delighted to support you on your rehabilitation journey. Our modern clinic specializes in treating back pain, neck pain, sports injuries, and customized recovery plans.</p><p>You can manage and book your appointments in real-time on our website.</p><p>Warm regards,<br/><strong>Dr. Preetha BPT</strong></p>`
-    );
+    ).catch(emailError => {
+      console.error("Failed to send welcome email:", emailError);
+    });
 
     // Generate JWT token
     const token = jwt.sign(
@@ -875,14 +887,16 @@ app.post("/api/reviews", async (req, res) => {
           rating: Number(rating),
           comment,
           image_url: "",
-          created_at: new Date().toISOString()
+          created_at: new Date().toISOString(),
+          time: new Date().toISOString()
         }
       ])
       .select()
       .single();
 
     if (insertError) {
-      return res.status(500).json({ error: "Failed to submit review." });
+      console.error("Supabase review insert error:", insertError);
+      return res.status(500).json({ error: "Failed to submit review.", details: insertError.message });
     }
 
     res.status(201).json({
@@ -912,22 +926,11 @@ app.get("/api/simulated-emails", async (req, res) => {
 
 // Serve Vite SPA
 const startServer = async () => {
-  if (process.env.NODE_ENV !== "production") {
-    const vite = await createViteServer({
-      server: { middlewareMode: true },
-      appType: "spa",
-    });
-    app.use(vite.middlewares);
-  } else {
-    const distPath = path.join(process.cwd(), "dist");
-    app.use(express.static(distPath));
-    app.get("*", (req, res) => {
-      res.sendFile(path.join(distPath, "index.html"));
-    });
-  }
-
+  // Backend-only mode - no Vite integration
+  // Frontend will run separately via Vite dev server
+  
   app.listen(PORT, "0.0.0.0", () => {
-    console.log(`Clinic server running on http://0.0.0.0:${PORT}`);
+    console.log(`Backend API server running on http://0.0.0.0:${PORT}`);
   });
 };
 

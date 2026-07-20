@@ -57,4 +57,5 @@ export interface ServiceDetail {
   duration: string;
   price?: string;
   iconName: string;
+  image?: string;
 }

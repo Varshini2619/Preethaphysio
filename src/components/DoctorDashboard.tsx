@@ -135,7 +135,7 @@ export default function DoctorDashboard({ doctorUser }: DoctorDashboardProps) {
 
     try {
       const token = localStorage.getItem("physio_clinic_token");
-      const res = await fetch(`/api/appointments/${reschedulingId}`, {
+      const res = await fetch(`${API_BASE_URL}/api/appointments/${reschedulingId}`, {
         method: "PUT",
         headers: {
           "Content-Type": "application/json",
@@ -174,13 +174,13 @@ export default function DoctorDashboard({ doctorUser }: DoctorDashboardProps) {
   // Filter lists
   const filteredQueue = appointments.filter(apt => {
     const isQueueStatus = apt.status === "pending" || apt.status === "confirmed";
-    const matchesSearch = apt.patientName.toLowerCase().includes(searchQuery.toLowerCase()) || apt.id.includes(searchQuery);
+    const matchesSearch = (apt.patientName?.toLowerCase() || "").includes(searchQuery.toLowerCase()) || apt.id.includes(searchQuery);
     const matchesDate = filterDate ? apt.date === filterDate : true;
     return isQueueStatus && matchesSearch && matchesDate;
   });
 
   const filteredArchive = appointments.filter(apt => {
-    const matchesSearch = apt.patientName.toLowerCase().includes(searchQuery.toLowerCase()) || apt.id.includes(searchQuery);
+    const matchesSearch = (apt.patientName?.toLowerCase() || "").includes(searchQuery.toLowerCase()) || apt.id.includes(searchQuery);
     const matchesDate = filterDate ? apt.date === filterDate : true;
     const matchesStatus = filterStatus !== "all" ? apt.status === filterStatus : true;
     return matchesSearch && matchesDate && matchesStatus;
