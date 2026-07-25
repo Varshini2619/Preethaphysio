@@ -184,10 +184,21 @@ initializeSeedData();
 app.post("/api/auth/register", async (req, res) => {
   try {
     const { email, password, name, age, gender, phone, address, medicalInfo } = req.body;
-    console.log("Registration attempt:", { email, name, hasPassword: !!password });
+    console.log("Registration attempt:", { email, name, hasPassword: !!password, age, gender, phone });
     
     if (!email || !password || !name) {
       return res.status(400).json({ error: "Email, password, and name are required fields." });
+    }
+    
+    // Validate email format
+    const emailRegex = /^[^\s@]+@[^\s@]+\.[^\s@]+$/;
+    if (!emailRegex.test(email)) {
+      return res.status(400).json({ error: "Invalid email format." });
+    }
+    
+    // Validate password length
+    if (password.length < 6) {
+      return res.status(400).json({ error: "Password must be at least 6 characters long." });
     }
 
     // Check if user exists
