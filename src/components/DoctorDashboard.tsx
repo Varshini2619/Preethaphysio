@@ -174,13 +174,15 @@ export default function DoctorDashboard({ doctorUser }: DoctorDashboardProps) {
   // Filter lists
   const filteredQueue = appointments.filter(apt => {
     const isQueueStatus = apt.status === "pending" || apt.status === "confirmed";
-    const matchesSearch = (apt.patientName?.toLowerCase() || "").includes(searchQuery.toLowerCase()) || apt.id.includes(searchQuery);
+    const patientNameStr = apt.patientName || "";
+    const matchesSearch = patientNameStr.toLowerCase().includes(searchQuery.toLowerCase()) || apt.id.includes(searchQuery);
     const matchesDate = filterDate ? apt.date === filterDate : true;
     return isQueueStatus && matchesSearch && matchesDate;
   });
 
   const filteredArchive = appointments.filter(apt => {
-    const matchesSearch = (apt.patientName?.toLowerCase() || "").includes(searchQuery.toLowerCase()) || apt.id.includes(searchQuery);
+    const patientNameStr = apt.patientName || "";
+    const matchesSearch = patientNameStr.toLowerCase().includes(searchQuery.toLowerCase()) || apt.id.includes(searchQuery);
     const matchesDate = filterDate ? apt.date === filterDate : true;
     const matchesStatus = filterStatus !== "all" ? apt.status === filterStatus : true;
     return matchesSearch && matchesDate && matchesStatus;
