@@ -11,7 +11,12 @@ export default function SimulatedEmailInbox() {
 
   const fetchEmails = async () => {
     try {
-      const res = await fetch(`${API_BASE_URL}/api/simulated-emails`);
+      const token = localStorage.getItem("physio_clinic_token");
+      const res = await fetch(`${API_BASE_URL}/api/simulated-emails`, {
+        headers: {
+          "Authorization": `Bearer ${token}`
+        }
+      });
       if (res.ok) {
         const data = await res.json();
         setEmails(data || []);
