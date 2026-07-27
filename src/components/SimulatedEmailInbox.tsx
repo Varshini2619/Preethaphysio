@@ -12,13 +12,16 @@ export default function SimulatedEmailInbox() {
   const fetchEmails = async () => {
     try {
       const token = localStorage.getItem('token');
+      if (!token) {
+        // Don't fetch if user is not authenticated
+        return;
+      }
+      
       const headers: Record<string, string> = {
         'Content-Type': 'application/json',
       };
       
-      if (token) {
-        headers['Authorization'] = `Bearer ${token}`;
-      }
+      headers['Authorization'] = `Bearer ${token}`;
       
       const res = await fetch(`${API_BASE_URL}/api/simulated-emails`, {
         headers
@@ -34,6 +37,12 @@ export default function SimulatedEmailInbox() {
   };
 
   useEffect(() => {
+    const token = localStorage.getItem('token');
+    if (!token) {
+      // Don't start polling if user is not authenticated
+      return;
+    }
+    
     fetchEmails();
     const interval = setInterval(() => {
       fetchEmails();
