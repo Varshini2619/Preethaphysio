@@ -927,9 +927,15 @@ app.post("/api/reviews", async (req, res) => {
 // Simulated Emails endpoint for the frontend inbox viewer
 app.get("/api/simulated-emails", async (req, res) => {
   try {
+    const activeUser = getAuthenticatedUser(req);
+    if (!activeUser) {
+      return res.status(401).json({ error: "Only logged-in users can view emails." });
+    }
+
     const { data: emails } = await supabase
       .from('emails')
       .select('*')
+      .eq('to', activeUser.email)
       .order('sent_at', { ascending: false });
 
     res.json(emails || []);
