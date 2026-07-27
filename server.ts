@@ -886,31 +886,34 @@ app.post("/api/reviews", async (req, res) => {
         .single();
 
       if (error || !updatedReview) {
+        console.error("Review update error:", error);
         return res.status(404).json({ error: "Review not found." });
       }
 
       return res.json({ message: "Review updated successfully!", review: updatedReview });
     }
 
-    // Create new review
+    // Create new review - try without 'time' field first
+    const reviewData: any = {
+      id: "rev-" + Math.random().toString(36).slice(2, 11),
+      patient_name: patientName,
+      rating: Number(rating),
+      comment,
+      image_url: "",
+      created_at: new Date().toISOString()
+    };
+
+    console.log("Attempting to insert review:", reviewData);
+
     const { data: newReview, error: insertError } = await supabase
       .from('reviews')
-      .insert([
-        {
-          id: "rev-" + Math.random().toString(36).slice(2, 11),
-          patient_name: patientName,
-          rating: Number(rating),
-          comment,
-          image_url: "",
-          created_at: new Date().toISOString(),
-          time: new Date().toISOString()
-        }
-      ])
+      .insert([reviewData])
       .select()
       .single();
 
     if (insertError) {
       console.error("Supabase review insert error:", insertError);
+      console.error("Error details:", JSON.stringify(insertError, null, 2));
       return res.status(500).json({ error: "Failed to submit review.", details: insertError.message });
     }
 
