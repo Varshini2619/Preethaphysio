@@ -36,6 +36,7 @@ const allowedOrigins = [
   'https://preethaphysio-aj8k.vercel.app',
   'https://preethaphysio-j05t2b31l-varshinibabu.vercel.app',
   'https://preethaphysio-a06dgvfg0-varshinibabu.vercel.app',
+  'https://preethaphysio.vercel.app',
   frontendUrl
 ];
 
