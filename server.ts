@@ -34,6 +34,7 @@ const allowedOrigins = [
   'http://localhost:3000',
   'http://127.0.0.1:51087',
   'https://preethaphysio-aj8k.vercel.app',
+  'https://preethaphysio-j05t2b31l-varshinibabu.vercel.app',
   frontendUrl
 ];
 
