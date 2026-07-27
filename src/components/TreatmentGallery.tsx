@@ -12,37 +12,37 @@ const treatmentImages: TreatmentImage[] = [
   {
     id: "1",
     title: "Manual Therapy",
-    image: "/assets/images/manual-therapy.jpg",
+    image: "/images/manual-therapy.jpg",
     description: "Expert hands-on treatment for pain relief"
   },
   {
     id: "2", 
     title: "Exercise Rehabilitation",
-    image: "/assets/images/exercise-rehab.jpg",
+    image: "/images/exercise-rehab.jpg",
     description: "Customized exercise programs for recovery"
   },
   {
     id: "3",
     title: "Electrotherapy",
-    image: "/assets/images/electrotherapy.jpg",
+    image: "/images/electrotherapy.jpg",
     description: "Advanced electrical stimulation treatments"
   },
   {
     id: "4",
     title: "Joint Mobilization",
-    image: "/assets/images/joint-mobilization.jpg",
+    image: "/images/joint-mobilization.jpg",
     description: "Gentle joint manipulation techniques"
   },
   {
     id: "5",
     title: "Posture Correction",
-    image: "/assets/images/posture-correction.jpg",
+    image: "/images/posture-correction.jpg",
     description: "Ergonomic assessment and correction"
   },
   {
     id: "6",
     title: "Gait Training",
-    image: "/assets/images/gait-training.jpg",
+    image: "/images/gait-training.jpg",
     description: "Walking pattern improvement therapy"
   }
 ];

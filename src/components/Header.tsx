@@ -34,7 +34,7 @@ export default function Header({
             className="flex items-center gap-2 cursor-pointer group"
           >
             <img 
-              src="/assets/logo.png" 
+              src="/logo.png" 
               alt="Dr. Preetha Physiotherapy Logo"
               className="w-10 h-10 object-contain shrink-0 transition-transform duration-200 group-hover:scale-105"
             />
