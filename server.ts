@@ -213,7 +213,7 @@ app.post("/api/auth/register", async (req, res) => {
       return res.status(400).json({ error: "User with this email already exists." });
     }
 
-    const newId = "patient-" + Math.random().toString(36).substr(2, 9);
+    const newId = "patient-" + Math.random().toString(36).slice(2, 11);
     const passwordHash = await bcrypt.hash(password, 10);
 
     const { data: newUser, error: insertError } = await supabase
@@ -244,7 +244,7 @@ app.post("/api/auth/register", async (req, res) => {
     try {
       await supabase.from('emails').insert([
         {
-          id: "email-" + Math.random().toString(36).substr(2, 9),
+          id: "email-" + Math.random().toString(36).slice(2, 11),
           to: email,
           subject: "Welcome to Dr. Preetha Physiotherapy Clinic",
           body: `<h3>Hello ${name},</h3><p>Welcome to <strong>Dr. Preetha Physiotherapy Clinic</strong>!</p><p>We are delighted to support you on your rehabilitation journey. Our modern clinic specializes in treating back pain, neck pain, sports injuries, and customized recovery plans.</p><p>You can manage and book your appointments in real-time on our website.</p><p>Warm regards,<br/><strong>Dr. Preetha BPT</strong></p>`,
@@ -360,12 +360,12 @@ app.post("/api/auth/reset-password", async (req, res) => {
       return res.status(404).json({ error: "No account found with this email." });
     }
 
-    const resetToken = Math.random().toString(36).substr(2, 6).toUpperCase();
+    const resetToken = Math.random().toString(36).slice(2, 8).toUpperCase();
 
     // Send a simulated reset email
     await supabase.from('emails').insert([
       {
-        id: "email-" + Math.random().toString(36).substr(2, 9),
+        id: "email-" + Math.random().toString(36).slice(2, 11),
         to: email,
         subject: "Reset Password Code - Dr. Preetha Physiotherapy Clinic",
         body: `<h3>Password Reset Request</h3><p>Dear ${user.name},</p><p>We received a request to reset your password. Please use the following code to complete your reset in the app:</p><h2 style="color: #2563eb; letter-spacing: 2px;">${resetToken}</h2><p>If you did not request this, you can safely ignore this email.</p><p>Thank you,<br/>Dr. Preetha Clinic Admin</p>`,
@@ -682,7 +682,7 @@ app.post("/api/appointments", async (req, res) => {
 
     await supabase.from('emails').insert([
       {
-        id: "email-" + Math.random().toString(36).substr(2, 9),
+        id: "email-" + Math.random().toString(36).slice(2, 11),
         to: patient.email,
         subject: `Confirmed: Appointment ${appointmentId} on ${date}`,
         body: emailContent,
@@ -793,7 +793,7 @@ app.put("/api/appointments/:id", async (req, res) => {
       if (emailTitle) {
         await supabase.from('emails').insert([
           {
-            id: "email-" + Math.random().toString(36).substr(2, 9),
+            id: "email-" + Math.random().toString(36).slice(2, 11),
             to: patient.email,
             subject: emailTitle,
             body: emailBody,
@@ -894,7 +894,7 @@ app.post("/api/reviews", async (req, res) => {
       .from('reviews')
       .insert([
         {
-          id: "rev-" + Math.random().toString(36).substr(2, 9),
+          id: "rev-" + Math.random().toString(36).slice(2, 11),
           patient_name: patientName,
           rating: Number(rating),
           comment,
