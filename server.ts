@@ -913,8 +913,18 @@ app.post("/api/reviews", async (req, res) => {
 
     if (insertError) {
       console.error("Supabase review insert error:", insertError);
-      console.error("Error details:", JSON.stringify(insertError, null, 2));
-      return res.status(500).json({ error: "Failed to submit review.", details: insertError.message });
+      console.error("Error message:", insertError.message);
+      console.error("Error details:", insertError.details);
+      console.error("Error hint:", insertError.hint);
+      console.error("Error code:", insertError.code);
+      console.error("Full error object:", JSON.stringify(insertError, null, 2));
+      return res.status(500).json({ 
+        error: "Failed to submit review.", 
+        message: insertError.message,
+        details: insertError.details,
+        hint: insertError.hint,
+        code: insertError.code
+      });
     }
 
     res.status(201).json({
