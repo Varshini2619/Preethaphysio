@@ -12,18 +12,25 @@ export default function SimulatedEmailInbox() {
   const fetchEmails = async () => {
     try {
       const token = localStorage.getItem('token');
-      if (!token) {
-        // Don't fetch if user is not authenticated
-        return;
-      }
+      const resetEmail = localStorage.getItem('resetEmail');
       
       const headers: Record<string, string> = {
         'Content-Type': 'application/json',
       };
       
-      headers['Authorization'] = `Bearer ${token}`;
+      let url = `${API_BASE_URL}/api/simulated-emails`;
       
-      const res = await fetch(`${API_BASE_URL}/api/simulated-emails`, {
+      if (token) {
+        headers['Authorization'] = `Bearer ${token}`;
+      } else if (resetEmail) {
+        // For password reset flow, use the email from localStorage
+        url += `?email=${encodeURIComponent(resetEmail)}`;
+      } else {
+        // Don't fetch if user is not authenticated and no reset email
+        return;
+      }
+      
+      const res = await fetch(url, {
         headers
       });
       
@@ -38,8 +45,10 @@ export default function SimulatedEmailInbox() {
 
   useEffect(() => {
     const token = localStorage.getItem('token');
-    if (!token) {
-      // Don't start polling if user is not authenticated
+    const resetEmail = localStorage.getItem('resetEmail');
+    
+    if (!token && !resetEmail) {
+      // Don't start polling if user is not authenticated and no reset email
       return;
     }
     

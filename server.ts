@@ -941,14 +941,23 @@ app.post("/api/reviews", async (req, res) => {
 app.get("/api/simulated-emails", async (req, res) => {
   try {
     const activeUser = getAuthenticatedUser(req);
-    if (!activeUser) {
-      return res.status(401).json({ error: "Only logged-in users can view emails." });
+    const { email: queryEmail } = req.query;
+    
+    let targetEmail = activeUser?.email;
+    
+    // If user is not authenticated but email is provided (for password reset flow)
+    if (!targetEmail && queryEmail && typeof queryEmail === 'string') {
+      targetEmail = queryEmail;
+    }
+    
+    if (!targetEmail) {
+      return res.status(401).json({ error: "Authentication required or email parameter missing." });
     }
 
     const { data: emails } = await supabase
       .from('emails')
       .select('*')
-      .eq('to', activeUser.email)
+      .eq('to', targetEmail)
       .order('sent_at', { ascending: false });
 
     res.json(emails || []);

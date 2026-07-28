@@ -63,6 +63,9 @@ export default function AuthModal({ isOpen, onClose, onAuthSuccess, initialMode 
         const data = await res.json();
         if (!res.ok) throw new Error(data.error || "Reset failed");
         
+        // Store email in localStorage for mail dispatcher to fetch emails
+        localStorage.setItem('resetEmail', email);
+        
         setSuccess(data.message);
         if (data.code) {
           setResetCode(data.code);
