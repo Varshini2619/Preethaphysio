@@ -894,14 +894,13 @@ app.post("/api/reviews", async (req, res) => {
       return res.json({ message: "Review updated successfully!", review: updatedReview });
     }
 
-    // Create new review (include time field for Supabase schema)
+    // Create new review (using created_at for time, no separate time column)
     const reviewData: any = {
       id: "rev-" + Math.random().toString(36).slice(2, 11),
       patient_name: patientName,
       rating: Number(rating),
       comment,
       image_url: "",
-      time: new Date().toISOString().slice(11, 19), // HH:MM:SS format for TIME column
       created_at: new Date().toISOString()
     };
 
