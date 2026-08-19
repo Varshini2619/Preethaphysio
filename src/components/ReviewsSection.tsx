@@ -298,8 +298,8 @@ export default function ReviewsSection({ user, onOpenAuth }: ReviewsSectionProps
         {/* Latest Testimonial Feed List */}
         <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-6">
           {reviews.map((rev) => {
-            const isAuthor = user && user.role === "patient" && rev.patientName.toLowerCase() === user.name.toLowerCase();
-            const initials = rev.patientName.split(" ").map(n => n.charAt(0)).join("").toUpperCase();
+            const isAuthor = user && user.role === "patient" && rev.patientName && rev.patientName.toLowerCase() === user.name.toLowerCase();
+            const initials = rev.patientName ? rev.patientName.split(" ").map(n => n.charAt(0)).join("").toUpperCase() : "??";
 
             return (
               <div 
