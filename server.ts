@@ -894,7 +894,7 @@ app.post("/api/reviews", async (req, res) => {
       return res.json({ message: "Review updated successfully!", review: updatedReview });
     }
 
-    // Create new review
+    // Create new review (without time field - column doesn't exist in schema)
     const reviewData: any = {
       id: "rev-" + Math.random().toString(36).slice(2, 11),
       patient_name: patientName,
