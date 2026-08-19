@@ -48,20 +48,6 @@ const treatmentImages: TreatmentImage[] = [
 ];
 
 export default function TreatmentGallery() {
-  const [scrollPosition, setScrollPosition] = useState(0);
-
-  // Auto-scroll animation with smooth motion
-  useEffect(() => {
-    const interval = setInterval(() => {
-      setScrollPosition((prev) => {
-        const newPosition = prev + 0.2; // Smaller increment for smoother motion
-        return newPosition > 100 ? 0 : newPosition;
-      });
-    }, 16); // ~60fps for smooth animation
-
-    return () => clearInterval(interval);
-  }, []);
-
   return (
     <section id="treatment-gallery" className="py-16 bg-gradient-to-b from-slate-50 to-white overflow-hidden">
       <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
@@ -79,13 +65,18 @@ export default function TreatmentGallery() {
           </p>
         </div>
 
-        {/* Horizontal Motion Gallery */}
-        <div className="relative">
+        {/* Horizontal Motion Gallery with CSS Animation */}
+        <div className="relative overflow-hidden">
           <motion.div
-            animate={{ x: `-${scrollPosition}%` }}
-            transition={{ type: "tween", duration: 0.016, ease: "linear" }}
+            animate={{ x: [0, -1000] }}
+            transition={{ 
+              duration: 30, 
+              repeat: Infinity, 
+              ease: "linear",
+              repeatType: "loop"
+            }}
             className="flex gap-6"
-            style={{ width: "200%" }}
+            style={{ width: "300%" }}
           >
             {/* First set of images */}
             {treatmentImages.map((item, index) => (
@@ -135,6 +126,50 @@ export default function TreatmentGallery() {
             {treatmentImages.map((item, index) => (
               <motion.div
                 key={`second-${item.id}`}
+                initial={{ opacity: 0, scale: 0.9 }}
+                whileInView={{ opacity: 1, scale: 1 }}
+                viewport={{ once: true }}
+                transition={{ duration: 0.6, delay: index * 0.1 }}
+                whileHover={{ scale: 1.05 }}
+                className="flex-shrink-0 w-[calc(20%-10px)] relative group rounded-2xl overflow-hidden shadow-lg cursor-pointer"
+              >
+                <div className="aspect-[4/3] bg-slate-200 relative overflow-hidden">
+                  <img 
+                    src={item.image} 
+                    alt={item.title}
+                    className="w-full h-full object-cover"
+                  />
+                  
+                  {/* Hover Overlay */}
+                  <motion.div 
+                    initial={{ opacity: 0 }}
+                    whileHover={{ opacity: 1 }}
+                    className="absolute inset-0 bg-gradient-to-t from-black/70 via-black/20 to-transparent flex flex-col justify-end p-6"
+                  >
+                    <motion.h3 
+                      initial={{ y: 20, opacity: 0 }}
+                      whileHover={{ y: 0, opacity: 1 }}
+                      className="text-xl font-bold text-white mb-2"
+                    >
+                      {item.title}
+                    </motion.h3>
+                    <motion.p 
+                      initial={{ y: 20, opacity: 0 }}
+                      whileHover={{ y: 0, opacity: 1 }}
+                      transition={{ delay: 0.1 }}
+                      className="text-sm text-gray-200"
+                    >
+                      {item.description}
+                    </motion.p>
+                  </motion.div>
+                </div>
+              </motion.div>
+            ))}
+
+            {/* Third set for seamless loop */}
+            {treatmentImages.map((item, index) => (
+              <motion.div
+                key={`third-${item.id}`}
                 initial={{ opacity: 0, scale: 0.9 }}
                 whileInView={{ opacity: 1, scale: 1 }}
                 viewport={{ once: true }}
