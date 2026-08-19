@@ -57,7 +57,7 @@ export default function TreatmentGallery() {
         const newPosition = prev + 1;
         return newPosition > 100 ? 0 : newPosition;
       });
-    }, 50);
+    }, 150); // Increased from 50ms to 150ms for slower animation
 
     return () => clearInterval(interval);
   }, []);
