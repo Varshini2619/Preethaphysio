@@ -1,6 +1,6 @@
 import React, { useState, useEffect } from "react";
 import { 
-  Star, MessageSquare, Plus, Edit2, AlertCircle, Sparkles, Check, CheckCircle 
+  Star, MessageSquare, Plus, Edit2, AlertCircle, Sparkles, Check, CheckCircle, Trash2 
 } from "lucide-react";
 import { Review, User } from "../types";
 import { API_BASE_URL } from "../config";
@@ -102,6 +102,36 @@ export default function ReviewsSection({ user, onOpenAuth }: ReviewsSectionProps
     setComment("");
     setRating(5);
     setShowForm(false);
+  };
+
+  const handleDeleteReview = async (reviewId: string) => {
+    if (!confirm("Are you sure you want to delete this review?")) {
+      return;
+    }
+
+    setIsLoading(true);
+    setError("");
+    setMessage("");
+
+    try {
+      const token = localStorage.getItem("physio_clinic_token");
+      const res = await fetch(`${API_BASE_URL}/api/reviews/${reviewId}`, {
+        method: "DELETE",
+        headers: {
+          "Authorization": `Bearer ${token}`
+        }
+      });
+
+      const data = await res.json();
+      if (!res.ok) throw new Error(data.error || "Failed to delete review");
+
+      setMessage(data.message || "Review deleted successfully!");
+      fetchReviews();
+    } catch (err: any) {
+      setError(err.message || "An error occurred.");
+    } finally {
+      setIsLoading(false);
+    }
   };
 
   const renderStars = (count: number, interactive = false, clickHandler?: (n: number) => void) => {
@@ -339,13 +369,20 @@ export default function ReviewsSection({ user, onOpenAuth }: ReviewsSectionProps
 
                 {/* Edit Controls */}
                 {isAuthor && (
-                  <div className="mt-4 pt-3 border-t border-slate-50 dark:border-slate-800 flex justify-end">
+                  <div className="mt-4 pt-3 border-t border-slate-50 dark:border-slate-800 flex justify-end gap-3">
                     <button
                       onClick={() => startEdit(rev)}
                       className="flex items-center gap-1 text-[11px] font-bold text-blue-600 dark:text-blue-400 hover:underline"
                     >
                       <Edit2 size={11} />
-                      <span>Edit My Review</span>
+                      <span>Edit</span>
+                    </button>
+                    <button
+                      onClick={() => handleDeleteReview(rev.id)}
+                      className="flex items-center gap-1 text-[11px] font-bold text-red-600 dark:text-red-400 hover:underline"
+                    >
+                      <Trash2 size={11} />
+                      <span>Delete</span>
                     </button>
                   </div>
                 )}

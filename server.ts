@@ -938,12 +938,60 @@ app.post("/api/reviews", async (req, res) => {
       });
     }
 
-    res.status(201).json({
-      message: "Review submitted successfully!",
-      review: newReview
-    });
+    return res.json({ message: "Review submitted successfully!", review: newReview });
   } catch (error) {
-    console.error("Post review error:", error);
+    console.error("Review submission error:", error);
+    res.status(500).json({ error: "Internal server error." });
+  }
+});
+
+app.delete("/api/reviews/:id", async (req, res) => {
+  try {
+    const activeUser = getAuthenticatedUser(req);
+    if (!activeUser) {
+      return res.status(401).json({ error: "Only logged-in users can delete reviews." });
+    }
+
+    const { id } = req.params;
+
+    // Check if the review belongs to the user
+    const { data: review } = await supabase
+      .from('reviews')
+      .select('patient_name')
+      .eq('id', id)
+      .single();
+
+    if (!review) {
+      return res.status(404).json({ error: "Review not found." });
+    }
+
+    const { data: patient } = await supabase
+      .from('users')
+      .select('name')
+      .eq('id', activeUser.id)
+      .single();
+
+    const patientName = patient ? patient.name : "";
+
+    // Only allow deletion if the user is the review author
+    if (review.patient_name !== patientName) {
+      return res.status(403).json({ error: "You can only delete your own reviews." });
+    }
+
+    // Delete the review
+    const { error } = await supabase
+      .from('reviews')
+      .delete()
+      .eq('id', id);
+
+    if (error) {
+      console.error("Review deletion error:", error);
+      return res.status(500).json({ error: "Failed to delete review." });
+    }
+
+    return res.json({ message: "Review deleted successfully!" });
+  } catch (error) {
+    console.error("Review deletion error:", error);
     res.status(500).json({ error: "Internal server error." });
   }
 });
