@@ -839,8 +839,18 @@ app.get("/api/reviews", async (req, res) => {
       }
     });
 
+    // Transform snake_case to camelCase for frontend compatibility
+    const transformedReviews = reviews?.map((r: any) => ({
+      id: r.id,
+      patientName: r.patient_name,
+      rating: r.rating,
+      comment: r.comment,
+      imageUrl: r.image_url,
+      createdAt: r.created_at
+    })) || [];
+
     res.json({
-      reviews: reviews || [],
+      reviews: transformedReviews,
       stats: {
         average,
         total,
