@@ -70,7 +70,7 @@ export default function TreatmentGallery() {
           <motion.div
             animate={{ x: [0, -1000] }}
             transition={{ 
-              duration: 30, 
+              duration: 20, 
               repeat: Infinity, 
               ease: "linear",
               repeatType: "loop"
