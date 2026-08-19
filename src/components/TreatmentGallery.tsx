@@ -50,14 +50,14 @@ const treatmentImages: TreatmentImage[] = [
 export default function TreatmentGallery() {
   const [scrollPosition, setScrollPosition] = useState(0);
 
-  // Auto-scroll animation
+  // Auto-scroll animation with smooth motion
   useEffect(() => {
     const interval = setInterval(() => {
       setScrollPosition((prev) => {
-        const newPosition = prev + 1;
+        const newPosition = prev + 0.2; // Smaller increment for smoother motion
         return newPosition > 100 ? 0 : newPosition;
       });
-    }, 150); // Increased from 50ms to 150ms for slower animation
+    }, 16); // ~60fps for smooth animation
 
     return () => clearInterval(interval);
   }, []);
@@ -83,7 +83,7 @@ export default function TreatmentGallery() {
         <div className="relative">
           <motion.div
             animate={{ x: `-${scrollPosition}%` }}
-            transition={{ type: "tween", duration: 0.05 }}
+            transition={{ type: "tween", duration: 0.016, ease: "linear" }}
             className="flex gap-6"
             style={{ width: "200%" }}
           >
